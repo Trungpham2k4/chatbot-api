@@ -5,7 +5,4 @@ services:
     plan: free
     region: singapore
     dockerfilePath: ./Dockerfile
-    envVars:
-      - key: PORT
-        value: 8000
     healthCheckPath: /docs
