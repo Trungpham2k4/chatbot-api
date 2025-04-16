@@ -12,4 +12,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Chạy ứng dụng FastAPI với Uvicorn, sử dụng cổng từ biến môi trường PORT của Render
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "$PORT"]
+CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port ${PORT}"]
