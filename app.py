@@ -8,6 +8,7 @@ from contextlib import asynccontextmanager
 import os
 import requests
 from dotenv import load_dotenv
+import uvicorn
 
 load_dotenv()
 
@@ -96,3 +97,7 @@ def chat(query: Query):
     print(f"Received question: {query.question}")
     reply = model.generate(query.question, encoder_tokenizer, decoder_tokenizer)
     return {"reply": reply}
+
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", 8000))  # Lấy cổng từ biến môi trường hoặc mặc định 8000
+    uvicorn.run(app, host="0.0.0.0", port=port)
