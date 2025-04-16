@@ -7,8 +7,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Expose port for clarity (optional)
+# Tùy hosting, bạn có thể EXPOSE hoặc không
 EXPOSE 8000
 
-# Chạy bằng shell để biến môi trường PORT được expand
-CMD sh -c "uvicorn app:app --host 0.0.0.0 --port ${PORT:-8000}"
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
