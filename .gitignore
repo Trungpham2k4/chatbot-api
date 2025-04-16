@@ -1,0 +1,4 @@
+myenv
+__pycache__
+phobert2bartpho_full_model.pt
+.env
