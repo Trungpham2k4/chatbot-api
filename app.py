@@ -19,7 +19,7 @@ MODEL_ID = os.getenv("MODEL_ID")
 def download_model():
     if not os.path.exists(MODEL_PATH):
         print("⬇️ Downloading model from HuggingFace...")
-        response = requests.get(MODEL_URL, stream=True)
+        response = requests.get("https://huggingface.co/TrungPham132313/phobert2bartpho_full_model/resolve/main/phobert2bartpho_full_model.pt", stream=True)
         if response.status_code == 200:
             with open(MODEL_PATH, 'wb') as f:
                 for chunk in response.iter_content(chunk_size=8192):
