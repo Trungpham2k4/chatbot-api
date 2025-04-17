@@ -17,9 +17,13 @@ MODEL_PATH = os.getenv("MODEL_PATH", "phobert2bartpho_full_model.pt")
 MODEL_ID = os.getenv("MODEL_ID")
 
 def download_model():
+    headers = {
+        "Authorization": f"Bearer {os.getenv('HF_TOKEN')}"
+    }
+
     if not os.path.exists(MODEL_PATH):
         print("⬇️ Downloading model from HuggingFace...")
-        response = requests.get("https://huggingface.co/TrungPham132313/phobert2bartpho_full_model/resolve/main/phobert2bartpho_full_model.pt", stream=True)
+        response = requests.get(MODEL_URL, headers=headers, stream=True)
         if response.status_code == 200:
             with open(MODEL_PATH, 'wb') as f:
                 for chunk in response.iter_content(chunk_size=8192):
@@ -27,6 +31,7 @@ def download_model():
             print("✅ Model downloaded successfully.")
         else:
             print(f"❌ Failed to download model. Status code: {response.status_code}")
+            print(response.text)
     else:
         print("✅ Model already exists locally.")
 
