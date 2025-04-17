@@ -17,23 +17,40 @@ MODEL_PATH = os.getenv("MODEL_PATH", "phobert2bartpho_full_model.pt")
 MODEL_ID = os.getenv("MODEL_ID")
 
 def download_model():
-    headers = {
-        "Authorization": f"Bearer {os.getenv('HF_TOKEN')}"
-    }
-
     if not os.path.exists(MODEL_PATH):
-        print("⬇️ Downloading model from HuggingFace...")
-        response = requests.get(MODEL_URL, headers=headers, stream=True)
-        if response.status_code == 200:
-            with open(MODEL_PATH, 'wb') as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    f.write(chunk)
-            print("✅ Model downloaded successfully.")
-        else:
-            print(f"❌ Failed to download model. Status code: {response.status_code}")
-            print(response.text)
+        print("⬇️ Downloading model from Google Drive...")
+        try:
+            import gdown
+        except ImportError:
+            os.system("pip install gdown")
+            import gdown
+
+        file_id = "1HoGKrL-j87MnZ3KvWNDSF65XWq-dkhV-"
+        url = f"https://drive.google.com/uc?id={file_id}"
+        gdown.download(url, MODEL_PATH, quiet=False)
+        print("✅ Model downloaded successfully.")
     else:
         print("✅ Model already exists locally.")
+
+
+# def download_model():
+#     headers = {
+#         "Authorization": f"Bearer {os.getenv('HF_TOKEN')}"
+#     }
+
+#     if not os.path.exists(MODEL_PATH):
+#         print("⬇️ Downloading model from HuggingFace...")
+#         response = requests.get(MODEL_URL, headers=headers, stream=True)
+#         if response.status_code == 200:
+#             with open(MODEL_PATH, 'wb') as f:
+#                 for chunk in response.iter_content(chunk_size=8192):
+#                     f.write(chunk)
+#             print("✅ Model downloaded successfully.")
+#         else:
+#             print(f"❌ Failed to download model. Status code: {response.status_code}")
+#             print(response.text)
+#     else:
+#         print("✅ Model already exists locally.")
 
 # Define the startup event handler
 @asynccontextmanager
