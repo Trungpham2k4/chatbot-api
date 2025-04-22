@@ -118,8 +118,10 @@ class Query(BaseModel):
 def chat(query: Query):
     print(f"Received question: {query.question}")
     reply = model.generate(query.question, encoder_tokenizer, decoder_tokenizer)
+    print(f"Generated reply: {reply}")
     return {"reply": reply}
 
 if __name__ == "__main__":
+    # print(torch.__file__) /// Dùng interpreter của python trong myenv để chạy thì k cần phải activate môi trường ảo
     port = int(os.environ.get("PORT", 8000))  # Lấy cổng từ biến môi trường hoặc mặc định 8000
     uvicorn.run(app, host="0.0.0.0", port=port)
